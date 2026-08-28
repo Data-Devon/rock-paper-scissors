@@ -14,9 +14,19 @@ def get_winner(player, computer):
     return "computer"
 
 def main():
+    while True:
+        try:
+            rounds = int(input("Best of how many rounds? (enter an odd number): "))
+            if rounds > 0 and rounds % 2 == 1:
+                break
+            print("Please enter a positive odd number.")
+        except ValueError:
+            print("Please enter a valid number.")
+
+    rounds_to_win = rounds // 2 + 1
     score = {"player": 0, "computer": 0, "tie": 0}
 
-    while True:
+    while score["player"] < rounds_to_win and score["computer"] < rounds_to_win:
         player = input("Choose rock, paper, or scissors (or 'quit'): ").lower()
         if player == "quit":
             break
@@ -36,8 +46,11 @@ def main():
 
         print(f"Score — You: {score['player']}, Computer: {score['computer']}, Ties: {score['tie']}\n")
 
-    print("Final score:", score)
-    print("Thanks for playing!")
-
+    if score["player"] >= rounds_to_win:
+        print(f"You won the match {score['player']}-{score['computer']}!")
+    elif score["computer"] >= rounds_to_win:
+        print(f"Computer won the match {score['computer']}-{score['player']}.")
+    else:
+        print("Match ended early. Final score:", score)
 if __name__ == "__main__":
     main()
