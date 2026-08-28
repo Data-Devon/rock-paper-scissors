@@ -1,4 +1,5 @@
 import random
+import turtle
 
 CHOICES = ["rock", "paper", "scissors"]
 
@@ -12,6 +13,33 @@ def get_winner(player, computer):
     if beats[player] == computer:
         return "player"
     return "computer"
+
+def show_fireworks():
+    screen = turtle.Screen()
+    screen.bgcolor("black")
+    screen.title("You win!")
+
+    artist = turtle.Turtle()
+    artist.speed(0)
+    artist.hideturtle()
+    artist.penup()
+
+    colors = ["red", "yellow", "orange", "cyan", "magenta", "white", "green"]
+
+    for _ in range(3):
+        x = random.randint(-200, 200)
+        y = random.randint(-100, 200)
+        artist.goto(x, y)
+        for angle in range(0, 360, 20):
+            artist.setheading(angle)
+            artist.color(random.choice(colors))
+            artist.pendown()
+            artist.forward(40)
+            artist.penup()
+            artist.goto(x, y)
+
+    screen.ontimer(screen.bye, 2500)
+    turtle.done()
 
 def main():
     while True:
@@ -48,6 +76,7 @@ def main():
 
     if score["player"] >= rounds_to_win:
         print(f"You won the match {score['player']}-{score['computer']}!")
+        show_fireworks()
     elif score["computer"] >= rounds_to_win:
         print(f"Computer won the match {score['computer']}-{score['player']}.")
     else:
