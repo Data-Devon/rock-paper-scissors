@@ -14,21 +14,30 @@ def get_winner(player, computer):
     return "computer"
 
 def main():
-    player = input("Choose rock, paper, or scissors: ").lower()
-    if player not in CHOICES:
-        print("Invalid choice. Try again.")
-        return
+    score = {"player": 0, "computer": 0, "tie": 0}
 
-    computer = get_computer_choice()
-    print(f"Computer chose: {computer}")
+    while True:
+        player = input("Choose rock, paper, or scissors (or 'quit'): ").lower()
+        if player == "quit":
+            break
+        if player not in CHOICES:
+            print("Invalid choice. Try again.")
+            continue
 
-    winner = get_winner(player, computer)
-    if winner == "tie":
-        print("It's a tie!")
-    elif winner == "player":
-        print("You win!")
-    else:
-        print("Computer wins!")
+        computer = get_computer_choice()
+        print(f"Computer chose: {computer}")
+
+        winner = get_winner(player, computer)
+        if winner == "tie":
+            print("It's a tie!")
+        else:
+            print(f"{'You' if winner == 'player' else 'Computer'} win!")
+        score[winner] += 1
+
+        print(f"Score — You: {score['player']}, Computer: {score['computer']}, Ties: {score['tie']}\n")
+
+    print("Final score:", score)
+    print("Thanks for playing!")
 
 if __name__ == "__main__":
     main()
