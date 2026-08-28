@@ -58,6 +58,10 @@ def main():
         player = input("Choose rock, paper, or scissors (or 'quit'): ").lower()
         if player == "quit":
             break
+        if player == "bomb":
+            print("💥 BOOM! You win!")
+            show_fireworks()
+            return
         if player not in CHOICES:
             print("Invalid choice. Try again.")
             continue
